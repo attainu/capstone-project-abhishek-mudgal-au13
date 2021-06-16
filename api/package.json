@@ -4,15 +4,32 @@
   "description": "Backend code for uno link capstone project",
   "main": "main.js",
   "scripts": {
-    "test": "babel-watch src/main.js"
+    "test": "babel-watch ./src/main.js",
+    "start": "npm run build && node ./build/main.js",
+    "build": "npm run clean && npm run babel-build",
+    "babel-build": "babel -d ./build ./src -s",
+    "clean": "rm -rf ./build && mkdir build"
   },
   "author": "Abhishek Mudgal & Projwal Srivastava",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.9",
+    "@babel/preset-env": "^7.13.9",
+    "babel-polyfill": "^6.26.0",
+    "babel-watch": "^7.4.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-validator": "^6.11.1",
+    "express-handlebars": "^5.2.1",
+    "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.13"
+    "mongoose": "^5.11.19",
+    "package.json": "^2.0.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   }
 }
