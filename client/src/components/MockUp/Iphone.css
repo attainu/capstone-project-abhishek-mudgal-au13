@@ -1,23 +1,9 @@
-body {
-    background: #f4f6fc;
-}
-/* body:after {
-    content: "Made with ❤️ by Adiel Hercules";
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 10px;
-    background-color: #3f436b;
-    color: #fff;
-    opacity: 0.6;
-} */
+
 .iphone-x {
     position: relative;
     margin: auto;
     width: 270px;
     height: 80%;
-    background-color: #7371ee;
-    background-image: linear-gradient(60deg, #7371ee 1%, #a1d9d6 100%);
     border-radius: 40px;
     box-shadow: 0px 0px 0px 11px #1f1f1f, 0px 0px 0px 13px #191919, 0px 0px 0px 20px #111;
 }
@@ -111,9 +97,23 @@ body {
     border-radius: 50%;
 }
 
-.image-picker>img{
+.image-picker>input{
     height: 100%;
     width: 100%;
     object-fit: fill;
 
+}
+
+.profile-img{
+    margin-left: auto;
+    margin-right: auto;
+}
+.profile-img>img{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    height: 25%;
+    width: 25%;
+    object-fit: fill;
+    border-radius: 50%;
 }

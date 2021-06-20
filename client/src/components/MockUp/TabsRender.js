@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 const Tabs = ({ color }) => {
@@ -23,6 +23,12 @@ const Tabs = ({ color }) => {
   // function bgColorApply(color){
   //   reactDom.findDOMNode(Iphone).getElementsByClassName('iphone-x').style.backgroundColor = "black"
   // }
+
+  const [changeBg, setChangeBg] = useState({data: ""})
+//  const color = "yellow-theme"
+  const changeBgClick = () => {
+    setChangeBg({ data: "yellow-theme"})
+  }
 
   return (
     <div>
@@ -100,7 +106,7 @@ const Tabs = ({ color }) => {
 
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                   <div className="flex justify-items-center space-x-4">
-                    <button className="rounded-full h-12 w-12 items-center justify-center shadow-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"></button>
+                    <button onClick={changeBgClick} className="rounded-full h-12 w-12 items-center justify-center shadow-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"></button>
                     <button className="rounded-full h-12 w-12 items-center justify-center shadow-md bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"></button>
                     <button className="rounded-full h-12 w-12 items-center justify-center shadow-md bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"></button>
                     <button className="rounded-full h-12 w-12 items-center justify-center shadow-md bg-gradient-to-r from-purple-200 via-purple-400 to-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"></button>
