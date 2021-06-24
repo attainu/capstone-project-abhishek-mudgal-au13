@@ -13,7 +13,7 @@ const route = express.Router()
 route.post(
     '/login',
     [
-        body('email', 'Please enter is valid Email!').isEmail(),
+        body('email', 'Please enter a valid Email!').isEmail(),
         body('password', 'Please enter your Password')
     ],
     async (req, res) =>{
@@ -23,7 +23,7 @@ route.post(
         if(!validationError.isEmpty()){
             return res.status(400).json({
                 data: {},
-                error: validationError.array(),
+                errors: validationError.array(),
                 msg: "Login Unsucessful!"
             })
         }
@@ -38,7 +38,12 @@ route.post(
             if(!user){
                 return res.status(400).json({
                     data: {},
-                    error: [],
+                    errors: [{
+                        location: "body",
+                        param: "password",
+                        value: req.body.email,
+                        msg: "User doesn't exists"
+                    }],
                     msg: "User doesn't exists"
                 })
             }
@@ -47,10 +52,11 @@ route.post(
             if(!isMatch){
                 return res.status(400).json({
                     data: {},
-                    error: [{
+                    errors: [{
                         location: "body",
                         param: "password",
-                        value: req.body.email
+                        value: req.body.email,
+                        msg: "Invalid credentials!"
                     }],
                     msg: "Email or password wrong!"
                 })
@@ -67,13 +73,13 @@ route.post(
                     if(err) throw err;
                     res.status(200).json({
                         data: {token: token},
-                        error: [],
+                        errors: [],
                         msg: "Login Success!"
                     })
                 }
             )
-        } catch (error) {
-            console.log(error)
+        } catch (e) {
+            console.log(e)
             return res.status(500).send("Internal Server Error!")
         }
     }

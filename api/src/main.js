@@ -1,5 +1,6 @@
 import express from 'express'
 import { InitMongo } from './models/configs/config'
+import cors from 'cors';
 
 // const passport = require('passport')
 
@@ -12,6 +13,7 @@ InitMongo()
 //Express configs below this line
 api.use(express.json())
 api.set('trust proxy', true)
+api.use(cors())
 
 // api.use(passport.initialize())
 // require("./utils/passportAuth")(passport)

@@ -10,7 +10,7 @@ const route = express.Router()
 route.post(
     '/register',
     [
-        body('name', 'Please enter your name').not().isEmpty(),
+        body('userName', 'Please enter your name').not().isEmpty().isAlphanumeric(),
         body('email', 'Please enter a valid email').isEmail(),
         body('password', 'Password should be of Minimum 6 and Maximum 15 in length!').isLength({min: 6, max: 15})
     ],
@@ -21,7 +21,7 @@ route.post(
         if(!errors.isEmpty()){
             return res.status(400).json({
                 data: {},
-                error: errors.array(),
+                errors: errors.array(),
                 msg: "Unable to create user!"
             })
         }
@@ -33,7 +33,7 @@ route.post(
             if(user){
                 return res.status(400).json({
                     data: {},
-                    error: [{
+                    errors: [{
                         location: "body",
                         param: "email",
                         value: req.body.email
@@ -44,9 +44,10 @@ route.post(
 
             // If the above block is not executed, below signup action will be executed
             user = new User({
-                name: req.body.name,
+                userName: req.body.userName,
                 email: req.body.email,
                 memberSince: Date.now(),
+                
                 newUser: true,
             })
             const salt = await bcrypt.genSalt(15)
@@ -55,12 +56,12 @@ route.post(
 
             return res.status(200).json({
                 data: user,
-                error: [],
+                errors: [],
                 msg: "User registered successfully"
             })
 
-        } catch (error) {
-            console.log(error)
+        } catch (e) {
+            console.log(e.message)
             res.status(500).send("Internal Server Error!")
         }
 
