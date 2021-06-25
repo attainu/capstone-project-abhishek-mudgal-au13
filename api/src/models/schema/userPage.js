@@ -14,7 +14,31 @@ const UserPage = mongoose.Schema({
     theme: String,
     socials: {
         type: Array
-    }
+    },
+
+    browserType: {
+        firefox: Number,
+        chrome: Number,
+        edge: Number,
+        opera: Number,
+        ie: Number,
+        safari: Number,
+        other: Number
+    },
+    OSType: {
+        linux: Number,
+        android: Number,
+        windows: Number,
+        mac: Number,
+        chromeOS: Number,
+        other: Number
+    },
+    deviceType: {
+        mobile: Number,
+        tablet: Number,
+        desktop: Number,
+        other: Number
+    },
 }, {timestamp: true}, 
 )
 

@@ -115,8 +115,6 @@ route.post(
 
         try {
             let user = await User.findById(req.user.id)
-
-            console.log(user);
             if(user.newUser == true){
                 let userPage = new UserPage({
                     _id: req.body.userName,
@@ -124,8 +122,6 @@ route.post(
                 })
 
                 await userPage.save()
-
-                console.log(userPage);
                 await User.findOneAndUpdate(
                     {email: user.email},
                     {newUser: false}

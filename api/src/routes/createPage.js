@@ -12,9 +12,6 @@ route.post(
   auth,
   // upload.single("profileImage"),
   async (req, res) => {
-
-    console.log(req.body);
-
     try {
       const user = await User.findById(req.user.id);
 
@@ -22,9 +19,13 @@ route.post(
         let creator = user.userName;
         let userPage = await UserPage.findOne({ _id: creator });
 
+
+
+
         if (!userPage) {
           userPage = new UserPage({
             _id: user.userName,
+            name: user.firstName,
             creator: req.user.id,
             profileImage: req.body.img,
             theme: req.body.changeBg.data,
@@ -43,7 +44,7 @@ route.post(
               _id: user.userName,
             },
             {
-              profileImage: req.body.img,
+              profileImage: req.body.img || '1.png',
               theme: req.body.changeBg.data,
               socials: req.body.linksArray,
             }
