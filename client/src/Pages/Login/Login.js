@@ -1,10 +1,9 @@
-import GetInButton from "../../components/Buttons/GetInButton";
 import Header from "../../components/NavigationBars/Header";
 import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 
 export default function Login(props) {
-  const loginURL = "http://localhost:5001/api/login";
+  const loginURL = "https://uno-link.herokuapp.com/api/login";
   const [loginForm, setLoginFrom] = useState({
     email: "",
     password: "",
@@ -29,7 +28,6 @@ export default function Login(props) {
           // console.log(result);
         } else {
           setValidationError(...result.errors);
-          console.log(result);
         }
       })
       .catch((err) => console.log(err));

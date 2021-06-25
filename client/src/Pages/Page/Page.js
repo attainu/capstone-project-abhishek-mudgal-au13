@@ -1,14 +1,16 @@
 import "./Page.css";
 import React, { useState, useEffect } from "react";
+import iconImg from './1.png'
 
 const Page = (props) => {
   const [data, setData] = useState();
 
-  let pageUrl = `http://localhost:5001/api/${props.match.params.userName}`;
+  let pageUrl = `https://uno-link.herokuapp.com/api/user/${props.match.params.userName}`;
 
   useEffect(() => {
     pageFetch();
   }, []);
+
   const pageFetch = () => {
     fetch(pageUrl, {
       method: "GET",
@@ -22,31 +24,32 @@ const Page = (props) => {
       .then((result) => {
         if (result.errors.length === 0) {
           setData(result.data);
-          console.log(result);
         } else {
-          //   setValidationError(...result.errors);
-          console.log(result);
+          // props.history.push("/404");
+
         }
       })
       .catch((err) => console.log(err));
   };
-  console.log(data);
+
+  console.log(data)
 
   return (
-    <div id={data.theme} className="mx-auto w-1/2">
-      <div className="profile-img">
-        <img
-          src={data.profileImage ? data.profileImage : "1.png"}
-          alt="profile"
-        />
+    <div id={data && data.theme} className="testtest">
+      <div className="links-profile-img">
+        <img src={data ? data.profileImage : iconImg} alt="profile" />
       </div>
-      <div className="iphone-link-content my-10 ">
+
+      <div className="text-center">
+      <h1 className="leading-7 text-gray-900 sm:text-3xl font-bold">{data && data.name}</h1>
+      </div>
+      <div className="link_container ">
         {data && data.socials
           ? data.socials.map((link, i) => {
               return (
-                <div>
+                <div className="links_array">
                   <a href={`${link.socialLink}`} target="_blank">
-                    <div className="bg-indigo-600 text-center w-1/2 text-white py-2 mx-auto my-2">
+                    <div className="bg-indigo-400 text-center rounded  text-white py-2 mx-auto my-2">
                       <h2>{link.title}</h2>
                     </div>
                   </a>

@@ -1,7 +1,5 @@
 import "./Iphone.css";
-import "../../Pages/DashBoard/Gradients.css";
 import PropTypes from "prop-types";
-import {Link} from 'react-router-dom'
 
 function Iphone(props) {
   return (
@@ -17,7 +15,7 @@ function Iphone(props) {
             return (
               <div>
                 <a href={`${link.socialLink}`} target="_blank">
-                  <div className="bg-indigo-600 text-center text-white py-2 mx-4 my-2">
+                  <div className="bg-indigo-600 text-center text-white mx-4 my-2">
                     <h2>{link.title}</h2>
                   </div>
                 </a>

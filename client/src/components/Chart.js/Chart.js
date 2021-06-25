@@ -26,16 +26,18 @@ function Chart(props) {
 Chart.defaultProps = {
   labels: ["Red", "Blue", "Green", "Indigo"],
   backgroundColor: [
-    "rgba(255, 99, 132, 0.2)",
-    "rgba(54, 162, 235, 0.2)",
-    "rgba(255, 206, 86, 0.2)",
-    "rgba(75, 192, 192, 0.2)",
+    "rgba(247, 53, 12, 0.2)",
+    "rgba(90, 247, 12, 0.2)",
+    "rgba(12, 76, 247, 0.2)",
+    "rgba(158, 12, 247, 0.2)",
+    "rgba(247, 12, 136, 0.2)",
   ],
   borderColor: [
-    "rgba(255, 99, 132, 1)",
-    "rgba(54, 162, 235, 1)",
-    "rgba(255, 206, 86, 1)",
-    "rgba(75, 192, 192, 1)",
+    "rgba(247, 53, 12, 1)",
+    "rgba(90, 247, 12, 1)",
+    "rgba(12, 76, 247, 1)",
+    "rgba(158, 12, 247, 1)",
+    "rgba(247, 12, 136, 1)",
   ],
   data: [12, 19, 3, 7]
 };
@@ -44,7 +46,8 @@ Chart.propTypes = {
   labels: PropTypes.array,
   backgroundColor: PropTypes.array,
   borderColor: PropTypes.array,
-  data: PropTypes.array
+  data: PropTypes.array,
+
 };
 
 export default Chart;

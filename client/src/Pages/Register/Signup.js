@@ -1,12 +1,12 @@
-import GetInButton from "../../components/Buttons/GetInButton";
 import Header from "../../components/NavigationBars/Header";
 import React, { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 
 export default function Register(props) {
-  const registerURL = "http://localhost:5001/api/register";
+  const registerURL = "https://uno-link.herokuapp.com/api/register";
   const [registerForm, setRegisterFrom] = useState({
     userName: "",
+    firstName: "",
     email: "",
     password: "",
   });
@@ -68,6 +68,22 @@ export default function Register(props) {
                       ...registerForm,
                       userName: e.target.value,
                     })
+                  }
+                />
+              </div>
+              <div>
+                <label htmlFor="firstName" className="sr-only">
+                  First name
+                </label>
+                <input
+                  id="firstName"
+                  name="Name"
+                  type="Name"
+                  autoComplete="name"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Fist Name"
+                  onChange={(e) =>
+                    setRegisterFrom({ ...registerForm, firstName: e.target.value })
                   }
                 />
               </div>

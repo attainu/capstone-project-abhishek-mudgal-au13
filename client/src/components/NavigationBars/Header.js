@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-      <nav className="flex flex-col text-center content-center sm:flex-row sm:text-left sm:justify-between py-2 px-6 bg-white shadow sm:items-baseline w-full">
+      <nav className="fixed flex flex-col text-center content-center sm:flex-row sm:text-left sm:justify-between py-2 px-6 bg-white shadow sm:items-baseline w-full">
         <div className="mb-2 sm:mb-0 inner">
           <Link
-            to="/register"
+            to="/"
             className="text-2xl no-underline text-grey-darkest hover:text-blue-dark font-sans font-bold"
           >
             UnoLink

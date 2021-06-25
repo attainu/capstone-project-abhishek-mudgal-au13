@@ -1,5 +1,6 @@
 body{
     margin: 0%;
+    padding: 0%;
 }
 
 #black-violet-theme{
@@ -63,3 +64,38 @@ body{
     object-fit: fill;
     border-radius: 50%;
 } */
+
+.links-profile-img{
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 200px;
+    margin-bottom: 5%;
+    /* margin-top: 15%; */
+    /* border: 2px red solid; */
+}
+.links-profile-img>img{
+    object-fit: fill;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+
+}
+
+.testtest{
+    min-height: 100vh;
+    width: 100vw;
+    padding: 10% 0px;
+    
+}
+
+/* .links_array{
+    width: 100%;
+} */
+
+.links_array>a{
+    width: 100%;
+    text-decoration: none;
+    color: white
+    
+}

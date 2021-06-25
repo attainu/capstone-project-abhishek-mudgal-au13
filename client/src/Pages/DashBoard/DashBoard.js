@@ -2,7 +2,7 @@ import SideBar from "../../components/NavigationBars/SideBar";
 import Iphone from "../../components/MockUp/Iphone";
 import React, { useState, useEffect } from "react";
 
-import "./Gradients.css";
+// import '../Page/Page.css'
 import "./Dashboard.css";
 
 function DashBoard(props) {
@@ -12,20 +12,17 @@ function DashBoard(props) {
   const [linkFormPut, setLinkFormPut] = useState({
     title: "",
     socialLink: "",
-
   });
   const [profileImage, setProfileImage] = useState(null);
   const [changeBg, setChangeBg] = useState({ data: "" });
 
-
-  const [img, setImg] = useState()
+  const [img, setImg] = useState();
 
   const changeBgClick = (colorBG) => {
     setChangeBg({ data: colorBG });
   };
 
   const postSocialLink = () => {
-    console.log(postSocialLink);
     if (linkFormPut.title && linkFormPut.socialLink) {
       setLinksArray([...linksArray, linkFormPut]);
     }
@@ -40,7 +37,14 @@ function DashBoard(props) {
     }
   };
 
-
+  const pageCreated = () => {
+    let inpBox = document.getElementById("page-created-id");
+    if (inpBox.style.display === "none") {
+      inpBox.style.display = "block";
+    } else {
+      inpBox.style.display = "none";
+    }
+  };
 
   const previewFile = (profileImage) => {
     const data = new FormData();
@@ -52,37 +56,28 @@ function DashBoard(props) {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => {  
-        console.log(data.url);
-        setImg(data.url) 
+      .then((data) => {
+        setImg(data.url);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
-
   useEffect(() => {
-    if(profileImage != null){
-      previewFile(profileImage)
+    if (profileImage != null) {
+      previewFile(profileImage);
     }
+  }, [profileImage]);
 
-  }, [profileImage])
-
-
-
-  const createPageUrl = "http://localhost:5001/api/create-page";
-
-
-
+  const createPageUrl = "https://uno-link.herokuapp.com/api/create-page";
 
   const createPage = () => {
     let data = {
       changeBg: changeBg,
       linksArray: linksArray,
-      img: img
-    }
-    console.log(linksArray);
+      img: img,
+    };
     fetch(createPageUrl, {
       method: "POST",
       headers: {
@@ -94,29 +89,30 @@ function DashBoard(props) {
     })
       .then((res) => res.json())
       .then((result) => {
-        if (!result) {
-          localStorage.setItem("token", result.data.token);
-          props.history.push("/charts");
-          // console.log(result);
+        if (result.errors.length === 0) {
+          let createInp = document.getElementById("createdPage");
+          let pageDone = document.getElementById("pageCreated");
+          pageDone.style.backgroundColor = "green"
+          pageDone.innerText = "Page created Successfully!"
+          // createInp.style.backgroundColor = "green"
+          createInp.placeholder = "http://uno-link-client.herokuapp.com + your username!"
         } else {
           setValidationError(...result.errors);
-          console.log(result);
         }
       })
       .catch((err) => console.log(err));
   };
 
-
   return (
     <div className="h-screen flex">
       <SideBar />
 
-      <div className="flex-col flex md:w-full">
+      <div className="flex-col flex md:w-full bg-gray-100">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl  mt-8 ml-8 h-8 mb-4">
           Create your own page!
         </h2>
         <div className="flex h-full">
-          <div className="w-1/2  mx-8 my-4 shadow-xl md:items-center rounded flex flex-col justify-around">
+          <div className="w-1/2  mx-8 my-4 shadow-xl md:items-center rounded flex flex-col justify-around glassy">
             <h3 className=" leading-7 text-gray-900 sm:text-3xl">
               Add Links to you page
             </h3>
@@ -126,6 +122,7 @@ function DashBoard(props) {
                 <img src="/avatar.png" alt="profile" />
                 <input
                   type="file"
+                  accept="image/*"
                   className="hidden"
                   onChange={(e) => setProfileImage(e.target.files[0])}
                 ></input>
@@ -155,7 +152,7 @@ function DashBoard(props) {
                         href="#link1"
                         role="tablist"
                       >
-                        Profile
+                        Start here!
                       </a>
                     </li>
                     <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -174,7 +171,7 @@ function DashBoard(props) {
                         href="#link2"
                         role="tablist"
                       >
-                        Background
+                        Themes Yay!
                       </a>
                     </li>
                     <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -193,7 +190,7 @@ function DashBoard(props) {
                         href="#link3"
                         role="tablist"
                       >
-                        Options
+                        Lets post it!
                       </a>
                     </li>
                   </ul>
@@ -332,17 +329,26 @@ function DashBoard(props) {
                         >
                           <button
                             onClick={createPage}
+                            id="pageCreated"
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
                             Create Page!
                           </button>
 
+                          <div className="page-created" id="page-created-id">
+                            <input
+                              id="createdPage"
+                              className="appearance-none mt-2 mb-2 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                              placeholder="Your Link will appear here"
+                              
+                              disabled
+                            />
+                          </div>
                           <div className="text-center text-red-500 font-bold">
                             <div>{validationError && validationError.msg}</div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>

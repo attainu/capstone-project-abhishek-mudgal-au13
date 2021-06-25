@@ -8,6 +8,8 @@ import Profile from './Pages/DashBoard/Profile';
 import PrivateRoute from './PrivateRoute';
 import jwtDecode from 'jwt-decode';
 import Page from './Pages/Page/Page';
+import Not404Found from './Pages/404/Not404Found'
+import Home from './Pages/Home/Home';
 
 
 function App() {
@@ -16,12 +18,16 @@ function App() {
     <BrowserRouter>
       {/* <Layout> */}
       <Switch>
+
+        <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" component={DashBoard} />
         <PrivateRoute exact path="/charts" component={Charts} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <Route exact path="/:userName" component={Page} />
+        <Route exact path="/404" component={Not404Found} />
+        <Route exact path="*" component={Not404Found} />
 
       </Switch>
       {/* </Layout> */}
