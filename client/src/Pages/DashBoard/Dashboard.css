@@ -1,0 +1,23 @@
+/* .input-model {
+    display: none;
+} */
+
+#input-model-id {
+    display: none;
+}
+
+.image-picker{
+    /* height: 25%; */
+    width: 21%;
+    border: 2px solid rgb(172, 172, 172);
+    border-radius: 50%
+}
+
+.image-picker>label{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    
+    /* border: ;
+    border-radius: 50%; */
+}

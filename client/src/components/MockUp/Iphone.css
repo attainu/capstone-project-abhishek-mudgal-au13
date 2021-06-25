@@ -1,6 +1,13 @@
+.iphone-link-content{
+    overflow: auto;
+    margin-bottom: 20px;
+    height: 300px;
+    /* border: indigo 2px solid; */
+}
 
 .iphone-x {
     position: relative;
+    /* overflow: auto; */
     margin: auto;
     width: 270px;
     height: 80%;
@@ -90,30 +97,19 @@
 }
 
 
-.image-picker{
-    height: 25%;
-    width: 21%;
-    border: 2px solid rgb(172, 172, 172);
-    border-radius: 50%;
-}
 
-.image-picker>input{
-    height: 100%;
-    width: 100%;
-    object-fit: fill;
-
-}
 
 .profile-img{
     margin-left: auto;
     margin-right: auto;
+    height: 80px;
+    width: 80px;
+    margin-top: 15%;
+    /* border: 2px red solid; */
 }
 .profile-img>img{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15%;
-    height: 25%;
-    width: 25%;
     object-fit: fill;
     border-radius: 50%;
+    height: 100%;
+    width: 100%;
 }

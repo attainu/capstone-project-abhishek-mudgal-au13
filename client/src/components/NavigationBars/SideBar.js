@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+
+
 
 function SideBar(props) {
+
+  const history = useHistory()
+  const logoutHandler = () =>{
+    localStorage.removeItem('token')
+    history.push("/login");
+  }
   return (
     <aside className="flex flex-col items-center bg-indigo-600 text-gray-700 shadow h-full">
       <div className="h-16 flex items-center w-full">
@@ -74,7 +83,7 @@ function SideBar(props) {
         </li>
       </ul>
       <div className="mt-auto h-16 flex items-center w-full">
-        <button className="h-16 w-10 mx-auto flex flex justify-center items-center w-full focus:text-orange-500 hover:bg-red-200 focus:outline-none">
+        <button onClick={logoutHandler} className="h-16 w-10 mx-auto flex flex justify-center items-center w-full focus:text-orange-500 hover:bg-red-200 focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"

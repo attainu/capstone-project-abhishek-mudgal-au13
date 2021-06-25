@@ -1,15 +1,111 @@
 import SideBar from "../../components/NavigationBars/SideBar";
 import Iphone from "../../components/MockUp/Iphone";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import "./Gradients.css";
+import "./Dashboard.css";
 
-function DashBoard() {
+function DashBoard(props) {
   const [openTab, setOpenTab] = React.useState(1);
+  const [linksArray, setLinksArray] = useState([]);
+  const [validationError, setValidationError] = useState();
+  const [linkFormPut, setLinkFormPut] = useState({
+    title: "",
+    socialLink: "",
 
+  });
+  const [profileImage, setProfileImage] = useState(null);
   const [changeBg, setChangeBg] = useState({ data: "" });
+
+
+  const [img, setImg] = useState()
+
   const changeBgClick = (colorBG) => {
     setChangeBg({ data: colorBG });
   };
+
+  const postSocialLink = () => {
+    console.log(postSocialLink);
+    if (linkFormPut.title && linkFormPut.socialLink) {
+      setLinksArray([...linksArray, linkFormPut]);
+    }
+  };
+
+  const showInputModel = () => {
+    let model = document.getElementById("input-model-id");
+    if (model.style.display === "none") {
+      model.style.display = "block";
+    } else {
+      model.style.display = "none";
+    }
+  };
+
+
+
+  const previewFile = (profileImage) => {
+    const data = new FormData();
+    data.append("file", profileImage);
+    data.append("upload_preset", "instagram-clone");
+    data.append("cloud_name", "rakesh350");
+    fetch("https://api.cloudinary.com/v1_1/rakesh350/image/upload", {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {  
+        console.log(data.url);
+        setImg(data.url) 
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+
+  useEffect(() => {
+    if(profileImage != null){
+      previewFile(profileImage)
+    }
+
+  }, [profileImage])
+
+
+
+  const createPageUrl = "http://localhost:5001/api/create-page";
+
+
+
+
+  const createPage = () => {
+    let data = {
+      changeBg: changeBg,
+      linksArray: linksArray,
+      img: img
+    }
+    console.log(linksArray);
+    fetch(createPageUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (!result) {
+          localStorage.setItem("token", result.data.token);
+          props.history.push("/charts");
+          // console.log(result);
+        } else {
+          setValidationError(...result.errors);
+          console.log(result);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   return (
     <div className="h-screen flex">
@@ -26,7 +122,14 @@ function DashBoard() {
             </h3>
 
             <div className="image-picker">
-              <input type="image" src="/avatar.png" alt="Submit"></input>
+              <label className="w-full h-full">
+                <img src="/avatar.png" alt="profile" />
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={(e) => setProfileImage(e.target.files[0])}
+                ></input>
+              </label>
             </div>
 
             <div>
@@ -102,6 +205,7 @@ function DashBoard() {
                           id="link1"
                         >
                           <button
+                            onClick={showInputModel}
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
@@ -121,6 +225,51 @@ function DashBoard() {
                             </svg>
                             Add Link
                           </button>
+                          <div
+                            className="input-model  my-4"
+                            id="input-model-id"
+                          >
+                            <label htmlFor="title" className="sr-only">
+                              Title
+                            </label>
+                            <input
+                              id="title"
+                              name="title"
+                              type="text"
+                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                              placeholder="Title"
+                              onChange={(e) =>
+                                setLinkFormPut({
+                                  ...linkFormPut,
+                                  title: e.target.value,
+                                })
+                              }
+                            />
+                            <label htmlFor="link" className="sr-only">
+                              Link
+                            </label>
+                            <input
+                              id="link"
+                              name="link"
+                              type="url"
+                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                              placeholder="Social Link"
+                              onChange={(e) =>
+                                setLinkFormPut({
+                                  ...linkFormPut,
+                                  socialLink: e.target.value,
+                                })
+                              }
+                            />
+                            <div className="text-center my-2">
+                              <button
+                                onClick={postSocialLink}
+                                className=" bg-indigo-600 px-4 py-1 rounded text-white"
+                              >
+                                Post
+                              </button>
+                            </div>
+                          </div>
                         </div>
 
                         <div
@@ -182,12 +331,18 @@ function DashBoard() {
                           id="link3"
                         >
                           <button
+                            onClick={createPage}
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
                             Create Page!
                           </button>
+
+                          <div className="text-center text-red-500 font-bold">
+                            <div>{validationError && validationError.msg}</div>
+                          </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -196,8 +351,7 @@ function DashBoard() {
             </div>
           </div>
 
-          <Iphone id={changeBg.data} />
-          
+          <Iphone img={img} id={changeBg.data} data={linksArray} />
         </div>
       </div>
     </div>
