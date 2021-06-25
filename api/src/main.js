@@ -25,6 +25,7 @@ import { register } from './routes/register'
 import { login } from './routes/login'
 import { createPage } from './routes/createPage';
 import { userPage } from './routes/userPage';
+import { user } from './routes/user'
 
 
 
@@ -33,6 +34,7 @@ api.use('/api', register)
 api.use('/api', login)
 api.use('/api', createPage)
 api.use('/api', userPage)
+api.use('/api', user)
 
 api.get('/', (req, res) => {
     res.redirect('https://google.com')

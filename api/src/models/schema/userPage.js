@@ -8,7 +8,8 @@ const UserPage = mongoose.Schema({
     creator: {
         type: mongoose.Schema.Types.ObjectId,
     },
-    // name: String,
+    
+    name: String,
     // userName: String,
     profileImage: String,
     theme: String,

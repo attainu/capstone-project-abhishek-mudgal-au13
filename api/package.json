@@ -32,6 +32,7 @@
     "multer": "^1.4.2",
     "package.json": "^2.0.1",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "ua-parser-js": "^0.7.28"
   }
 }

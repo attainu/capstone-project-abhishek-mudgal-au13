@@ -19,10 +19,8 @@ route.post(
       .isAlphanumeric(),
     body("firstName")
       .trim()
-      .not()
       .isLength({ min: 3 })
       .withMessage("Please enter a valid name")
-      .not()
       .isAlpha()
       .withMessage("First name should not have numbers"),
     body("email", "Please enter a valid email").isEmail(),
