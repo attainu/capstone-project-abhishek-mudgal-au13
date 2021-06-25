@@ -45,9 +45,7 @@ route.post(
             // If the above block is not executed, below signup action will be executed
             user = new User({
                 userName: req.body.userName,
-                email: req.body.email,
-                memberSince: Date.now(),
-                
+                email: req.body.email,                
                 newUser: true,
             })
             const salt = await bcrypt.genSalt(15)

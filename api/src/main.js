@@ -21,14 +21,19 @@ api.use(cors())
 
 //Importing Routes all below:
 
-import {register} from './routes/register'
-import {login} from './routes/login'
+import { register } from './routes/register'
+import { login } from './routes/login'
+import { createPage } from './routes/createPage';
+import { userPage } from './routes/userPage';
 
 
 
 // plugging in all the apis below:
 api.use('/api', register)
 api.use('/api', login)
+api.use('/api', createPage)
+api.use('/api', userPage)
+
 api.get('/', (req, res) => {
     res.redirect('https://google.com')
 })

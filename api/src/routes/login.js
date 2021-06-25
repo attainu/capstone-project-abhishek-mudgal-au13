@@ -33,8 +33,6 @@ route.post(
 
             // Searching for the user in the database, if not found, user doesn't exist
             let user = await User.findOne({email: req.body.email})
-            console.log(req.body.email);
-            console.log(user);
             if(!user){
                 return res.status(400).json({
                     data: {},

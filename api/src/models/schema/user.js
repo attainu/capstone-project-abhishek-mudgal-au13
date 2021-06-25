@@ -13,8 +13,9 @@ const UserSchema = mongoose.Schema({
         type: String,
         // required: true,
     },
-    memberSince: Date,
     newUser: Boolean,
-})
+
+}, {timestamps: true }
+)
 
 export default mongoose.model('User', UserSchema)
